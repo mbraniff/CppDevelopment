@@ -1,0 +1,14 @@
+{
+    "name": "Dev Container",
+    "dockerFile": "Dockerfile",
+
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+    },
+
+    "extensions": [
+        "ms-vscode.cpptools"
+    ],
+
+    "remoteUser": "vscode"
+}
