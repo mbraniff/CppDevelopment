@@ -1,5 +1,5 @@
 build:
-	g++ *.cpp
+	g++ -pthread *.cpp
 
 run:
 	./a.out

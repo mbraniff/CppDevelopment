@@ -1,31 +1,41 @@
-#ifndef _EVENT_
-#define _EVENT_ 1
+#ifndef _EVENT_H_
+#define _EVENT_H_ 1
 
-#include <queue>
-#include <stdint.h>
+#include <vector>
 #include "EventSubscription.h"
 
-class EventSubscription;
-
 class Event {
-    friend class EventSubscription;
     private:
-    std::queue<EventSubscription*> Subscriptions;
-    size_t SubscriptionSize;
+    std::vector<EventSubscription*> Subscriptions;
 
     public:
     Event()
     {
-        SubscriptionSize = 0;
+    }
+
+    void subscribe(EventSubscription *sub)
+    {
+        Subscriptions.push_back(sub);
+    }
+
+    void unsubscribe(EventSubscription *sub)
+    {
+        int i = 0;
+        for(auto s: Subscriptions)
+        {
+            if(s == sub)
+            {
+                Subscriptions.erase(Subscriptions.begin()+i);
+            }
+            i++;
+        }
     }
 
     void fire(void *data)
     {
-        std::queue<EventSubscription*> copy = Subscriptions;
-        while(!copy.empty())
+        for(auto s: Subscriptions)
         {
-            EventSubscription* curr = copy.front();
-            curr->fire(data);
+            s->fire(data);
         }
     }
 };

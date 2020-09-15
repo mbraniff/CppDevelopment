@@ -1,10 +1,5 @@
-#ifndef _EVENTSUBSCRIPTION_
-#define _EVENTSUBSCRIPTION_ 1
-
-#include "Event.h"
-#include <queue>
-
-class Event;
+#ifndef _EVENTSUBSCRIPTION_H_
+#define _EVENTSUBSCRIPTION_H_ 1
 
 class EventSubscription {
     friend class Event;
@@ -14,6 +9,7 @@ class EventSubscription {
     private:
     void *Context;
     callback Callback;
+
     void fire(void *data)
     {
         Callback(Context, data);
@@ -26,10 +22,6 @@ class EventSubscription {
         Callback = _callback;
     }
 
-    void Subscribe(Event* e)
-    {
-        e->Subscriptions.push(this);
-    }
 };
 
 #endif
